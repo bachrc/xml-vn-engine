@@ -12,8 +12,12 @@ de l'écrire où bon vous semble, quand l'inspiration vous vient : sur un télé
 Cependant, afin que vous compreniez bien comment doit être structuré votre fichier texte, vous devez comprendre 
 le concept des langages balisés, comme le HTML, ou ici le XML.
 
-Vous trouverez un exemple totalement fonctionnel qui est ici le source.xml
+Vous trouverez un exemple totalement fonctionnel qui est ici le source.xml.
 
+## Lancer l'aventure
+Pour ce faire, vous n'avez besoin que de votre navigateur internet. Aucune connexion n'est nécessaire. Téléchargez ici source.xml et style.xsl, et lancez source.xml pour commencer à jouer à l'aventure d'exemple.
+
+## Structurer votre aventure
 Tout d'abord, votre fichier de texte doit être au format XML. Appelez-le comme bon vous semble : jeu.xml, dessert.xml...
 Ensuite, n'oubliez pas de coller ceci au début de votre fichier XML : 
 ```xml
@@ -31,8 +35,6 @@ Ensuite, n'oubliez pas de coller ceci au début de votre fichier XML :
 				<!ELEMENT intitule (#PCDATA)>
 ]>
 ```
-## Structurer votre aventure
-
 Ensuite, vous pouvez commencer à écrire ! Allons, l'intro n'était pas si longue.
 
 Votre aventure sera contenue dans des balises <aventure> et </aventure>, comme ci-dessous :
