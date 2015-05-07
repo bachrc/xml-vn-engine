@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="style.xsl"?>
+<!DOCTYPE aventure [
+	<!ELEMENT aventure (evenement+)>
+		<!ELEMENT evenement (id, titre, message, choix*)>
+		<!ATTLIST evenement	debut (oui) #IMPLIED>
+			<!ELEMENT id (#PCDATA)>
+			<!ELEMENT titre (#PCDATA)>
+			<!ELEMENT message (#PCDATA)>
+			<!ELEMENT choix (dest, intitule)>
+				<!ELEMENT dest (#PCDATA)>
+				<!ELEMENT intitule (#PCDATA)>
+]>
+
+<aventure>
+	<evenement debut="oui">
+		<id>1</id>
+		<titre>Le commencement</titre>
+		<message>Bonjour à tous, c'est la kawate. C'est le matin et personne n'est motivé. Que faire ?</message>
+		<choix>
+			<dest>2</dest>
+			<intitule>mdr rien</intitule>
+		</choix>
+		<choix>
+			<dest>3</dest>
+			<intitule>je travaille parce que fuck it</intitule>
+		</choix>
+	</evenement>
+	<evenement>
+		<id>2</id>
+		<titre>Rien faire</titre>
+		<message>Voilà, tu te fais rien.</message>
+	</evenement>
+	<evenement>
+		<id>3</id>
+		<titre>Travailler</titre>
+		<message>Vous travaillez ardument, mais vous en avez marre, et vous voulez prendre une pause, car le travail c'est éreintant.</message>
+		<choix>
+			<dest>4</dest>
+			<intitule>Le travail c'est la santé ! Je continue.</intitule>
+		</choix>
+		<choix>
+			<dest>5</dest>
+			<intitule>Ne rien faire, c'est la préserver. Je glande.</intitule>
+		</choix>
+		<choix>
+			<dest>6</dest>
+			<intitule>Je meurs</intitule>
+		</choix>
+	</evenement>
+	<evenement>
+		<id>4</id>
+		<titre>Encore travailler</titre>
+		<message>Vous travaillez encore. Vous avez tenu 30 minutes, le patron vous offre une promotion !</message>
+	</evenement>
+	<evenement>
+		<id>5</id>
+		<titre>Arrêter de travailler</titre>
+		<message>Vous êtes en bonne santé maintenant. C'est important pour trouver un nouvel emploi.</message>
+	</evenement>
+	<evenement>
+		<id>6</id>
+		<titre>Je suis mort</titre>
+		<message>Vous êtes mort</message>
+	</evenement>
+</aventure>
