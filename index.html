@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>XML VN Engine by totorolepacha</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>XML VN Engine</h1>
+        <h2>A simple VN engine wrote in XML/XSL/Javascript/HTML who runs your XML file has a fully playable game.</h2>
+        <a href="https://github.com/totorolepacha/xml-vn-engine" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="xml-vn-engine" class="anchor" href="#xml-vn-engine" aria-hidden="true"><span class="octicon octicon-link"></span></a>xml-vn-engine</h1>
+
+<p>A simple VN engine wrote in XML/XSL/Javascript/HTML who runs your XML file has a fully playable game.</p>
+
+<p>Un simple moteur de VN écrit en XML/XSL/JS/HTML qui utilise votre fichier XML pour en faire quelque chose de jouable.</p>
+
+<h2>
+<a id="comment-ça-marche-" class="anchor" href="#comment-%C3%A7a-marche-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comment ça marche ?</h2>
+
+<p>J'ai fait ça de la manière la plus compréhensible possible. </p>
+
+<p>Pour écrire votre histoire à choix multiples, vous n'aurez besoin que d'un éditeur de texte ! Ceci vous permet donc 
+de l'écrire où bon vous semble, quand l'inspiration vous vient : sur un téléphone, un notebook, au bureau...</p>
+
+<p>Cependant, afin que vous compreniez bien comment doit être structuré votre fichier texte, vous devez comprendre 
+le concept des langages balisés, comme le HTML, ou ici le XML.</p>
+
+<p>Vous trouverez un exemple totalement fonctionnel qui est ici le source.xml.</p>
+
+<h2>
+<a id="lancer-laventure" class="anchor" href="#lancer-laventure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lancer l'aventure</h2>
+
+<p>Pour ce faire, vous n'avez besoin que de votre navigateur internet. Aucune connexion n'est nécessaire. Téléchargez ici source.xml et style.xsl, et lancez source.xml pour commencer à jouer à l'aventure d'exemple.</p>
+
+<h2>
+<a id="structurer-votre-aventure" class="anchor" href="#structurer-votre-aventure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Structurer votre aventure</h2>
+
+<h3>
+<a id="les-bases" class="anchor" href="#les-bases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Les bases</h3>
+
+<p>Tout d'abord, votre fichier de texte doit être au format XML. Appelez-le comme bon vous semble : jeu.xml, dessert.xml...
+Ensuite, n'oubliez pas de coller ceci au début de votre fichier XML : </p>
+
+<div class="highlight highlight-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span> ?&gt;
+&lt;?<span class="pl-ent">xml-stylesheet</span><span class="pl-e"> type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/xsl<span class="pl-pds">"</span></span><span class="pl-e"> href</span>=<span class="pl-s"><span class="pl-pds">"</span>style.xsl<span class="pl-pds">"</span></span>?&gt;
+&lt;!<span class="pl-k">DOCTYPE</span> <span class="pl-v">aventure</span> [
+    &lt;!ELEMENT aventure (evenement+)&gt;
+        &lt;!ELEMENT evenement (id, titre, message, choix*)&gt;
+        &lt;!ATTLIST evenement debut (oui) #IMPLIED&gt;
+            &lt;!ELEMENT id (#PCDATA)&gt;
+            &lt;!ELEMENT titre (#PCDATA)&gt;
+            &lt;!ELEMENT message (#PCDATA)&gt;
+            &lt;!ELEMENT choix (dest, intitule)&gt;
+                &lt;!ELEMENT dest (#PCDATA)&gt;
+                &lt;!ELEMENT intitule (#PCDATA)&gt;
+]&gt;</pre></div>
+
+<p>Ensuite, vous pouvez commencer à écrire ! Allons, l'intro n'était pas si longue.</p>
+
+<p>Votre aventure sera contenue dans des balises  et , comme ci-dessous :</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">aventure</span>&gt;
+  Votre aventure ici...
+&lt;/<span class="pl-ent">aventure</span>&gt;</pre></div>
+
+<p>C'est le bloc qui contiendra votre aventure. Bien sûr, une aventure seule ne sert pas à grand chose. Elle doit donc contenir plusieurs évènements, sous forme de blocs, toujours :</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">aventure</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        Votre premier évènement...
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        Votre deuxième évènement...
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+&lt;/<span class="pl-ent">aventure</span>&gt;</pre></div>
+
+<h3>
+<a id="comment-structurer-un-évènement" class="anchor" href="#comment-structurer-un-%C3%A9v%C3%A8nement" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comment structurer un évènement</h3>
+
+<p>Un évènement contient trois éléments essentiels, et un facultatif :</p>
+
+<ul>
+<li>Un identifiant unique, qui doit être un nombre (obligatoire)</li>
+<li>Le titre de l'évènement (obligatoire)</li>
+<li>Le message contenu dans l'évènement (obligatoire)</li>
+<li>Les différents choix (facultatif, on y reviendra un peu plus tard)</li>
+</ul>
+
+<p>Voyez l'exemple ci-dessous :</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">aventure</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        &lt;<span class="pl-ent">id</span>&gt;1&lt;/<span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">titre</span>&gt;Le commencement&lt;/<span class="pl-ent">titre</span>&gt;
+        &lt;<span class="pl-ent">message</span>&gt;Bonjour, vous êtes au début de mon aventure !&lt;/<span class="pl-ent">message</span>&gt;
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+&lt;/<span class="pl-ent">aventure</span>&gt;</pre></div>
+
+<p>Bravo ! Vous avez créé un évènement ! Vous pouvez lire au dessus que votre bloc "evenement" contient ses trois blocs fondamentaux, à savoir "id", "titre", et "message". Vous pouvez désormais l'afficher fièrement. Cependant, une aventure sans choix, c'est un peu triste non ? Voyons comment en faire.</p>
+
+<h3>
+<a id="créer-des-choix-entre-les-évènements" class="anchor" href="#cr%C3%A9er-des-choix-entre-les-%C3%A9v%C3%A8nements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Créer des choix entre les évènements</h3>
+
+<p>Créer des choix dans un évènement n'est pas obligatoire. Vous pouvez très bien afficher un message sans proposer de suite. Comme pour une mort par exemple.</p>
+
+<p>Pour ajouter vos choix, vous devez donc créer un bloc par choix au sein de votre évènement. Comme illustré ci dessous :</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">aventure</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        &lt;<span class="pl-ent">id</span>&gt;1&lt;/<span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">titre</span>&gt;Le commencement&lt;/<span class="pl-ent">titre</span>&gt;
+        &lt;<span class="pl-ent">message</span>&gt;Bonjour, vous êtes au début de mon aventure !&lt;/<span class="pl-ent">message</span>&gt;
+        &lt;<span class="pl-ent">choix</span>&gt;
+            Le premier choix...
+        &lt;/<span class="pl-ent">choix</span>&gt;
+        &lt;<span class="pl-ent">choix</span>&gt;
+            Le deuxième choix...
+        &lt;/<span class="pl-ent">choix</span>&gt;
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+&lt;/<span class="pl-ent">aventure</span>&gt;</pre></div>
+
+<p>Sauf qu'un choix a besoin de deux choses pour fonctionner : une destination, et un intitulé.</p>
+
+<ul>
+<li>La destination correspond à l'identifiant de l'évènement cible. Quand vous cliquerez sur ce choix, où cela vous mènera ? C'est à vous de choisir vers quel évènement ce choix reconduira, en y renseignant l'identifiant de l'évènement ciblé.</li>
+<li>L'intitulé est le texte du choix.</li>
+</ul>
+
+<p>Prenons un exemple de tout ce que nous avons appris :</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">aventure</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        &lt;<span class="pl-ent">id</span>&gt;1&lt;/<span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">titre</span>&gt;Le commencement&lt;/<span class="pl-ent">titre</span>&gt;
+        &lt;<span class="pl-ent">message</span>&gt;Bonjour, bienvenue dans mon aventure ! Que faire ?&lt;/<span class="pl-ent">message</span>&gt;
+        &lt;<span class="pl-ent">choix</span>&gt;
+            &lt;<span class="pl-ent">dest</span>&gt;2&lt;/<span class="pl-ent">dest</span>&gt;
+            &lt;<span class="pl-ent">intitule</span>&gt;Manger&lt;/<span class="pl-ent">intitule</span>&gt;
+        &lt;/<span class="pl-ent">choix</span>&gt;
+        &lt;<span class="pl-ent">choix</span>&gt;
+            &lt;<span class="pl-ent">dest</span>&gt;3&lt;/<span class="pl-ent">dest</span>&gt;
+            &lt;<span class="pl-ent">intitule</span>&gt;Dormir&lt;/<span class="pl-ent">intitule</span>&gt;
+        &lt;/<span class="pl-ent">choix</span>&gt;
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        &lt;<span class="pl-ent">id</span>&gt;2&lt;/<span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">titre</span>&gt;Manger&lt;/<span class="pl-ent">titre</span>&gt;
+        &lt;<span class="pl-ent">message</span>&gt;Miam, cette pomme est géniale. Le dessert des rois.&lt;/<span class="pl-ent">message</span>&gt;
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+    &lt;<span class="pl-ent">evenement</span>&gt;
+        &lt;<span class="pl-ent">id</span>&gt;3&lt;/<span class="pl-ent">id</span>&gt;
+        &lt;<span class="pl-ent">titre</span>&gt;Dormir&lt;/<span class="pl-ent">titre</span>&gt;
+        &lt;<span class="pl-ent">message</span>&gt;C'est fatiguant la vie quand on est chômeur, ça fait du bien de dormir&lt;/<span class="pl-ent">message</span>&gt;
+    &lt;/<span class="pl-ent">evenement</span>&gt;
+&lt;/<span class="pl-ent">aventure</span>&gt;</pre></div>
+
+<p>Voilà ! Vous avez à présent toutes les cartes en main pour réaliser votre propre aventure !</p>
+
+<h3>
+<a id="comment-définir-lévènement-de-départ" class="anchor" href="#comment-d%C3%A9finir-l%C3%A9v%C3%A8nement-de-d%C3%A9part" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comment définir l'évènement de départ</h3>
+
+<p>Car oui, vous ne voulez peut-être pas commencer votre aventure par le premier évènement. Pour paramétrer ceci, il vous suffit de modifier votre balise  comme ceci :</p>
+
+<div class="highlight highlight-xml"><pre>    &lt;<span class="pl-ent">evenement</span> <span class="pl-e">debut</span>=<span class="pl-s"><span class="pl-pds">"</span>oui<span class="pl-pds">"</span></span>&gt;
+        Votre évènement...
+    &lt;/<span class="pl-ent">evenement</span>&gt;</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/totorolepacha/xml-vn-engine/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/totorolepacha/xml-vn-engine/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/totorolepacha/xml-vn-engine"></a> is maintained by <a href="https://github.com/totorolepacha">totorolepacha</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
