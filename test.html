@@ -1,0 +1,180 @@
+<html>
+<head>
+    <title>Bonjour</title>
+	<meta charset="UTF-8" />
+	<style>
+			html {
+				margin:0px;
+				width:100%;
+				height:100%;
+			}
+
+			body {
+				font-family: Helvetica;
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				display: table;
+			}
+
+			p {
+				text-align: center;
+			}
+
+			section.texte {
+				display: table-row;
+				height: 80%;
+				width: 100%;
+			}
+
+			p.texte {
+				display: table-cell;
+				vertical-align: middle;
+				background-color: #8ACDFF;
+			}
+
+			section {
+				display: table-row;
+				height: 15%;
+				width: 100%;
+				font-size: 16pt;
+			}
+
+			p.choix {
+				display: table-cell;
+				background-color: #B276FF;
+				vertical-align: middle;
+				width: 100%;
+			}
+			
+			a {
+				text-decoration:none;
+				color:#000000;
+			}
+	</style>
+</head>
+<body>
+    <section class="texte">
+		<p id="texte" class="texte"></p>
+    </section>
+    <section class="choix">
+		<p id="choix" class="choix"></p>
+    </section>
+    
+    <script type="text/javascript">
+	    function Choix(dest, intitule){
+	        this.dest = dest;
+	        this.intitule = intitule;
+	    }
+	    
+	    function Evenement(id, nom, message) {
+	        this.id = id;
+	        this.nom = nom;
+	        this.message = message;
+	        this.debut = false;
+	    }
+	    
+	    Evenement.prototype.setChoix = function(newChoix) {
+	        this.choix = new Array();
+	        
+	        for(var i = 0; i < newChoix.length; i++) {
+				if(newChoix[i].length == 2)
+					this.choix.push(new Choix(newChoix[i][0], newChoix[i][1]));
+			}
+	    }
+	        
+	    Evenement.prototype.setDebut = function() {
+	        this.debut = true;
+	    }
+	        
+	    Evenement.prototype.unsetDebut = function() {
+	        this.debut = false;
+	    }
+
+	    function Aventure(evenementsToAdd) {
+	        // Optimisation des clés dans le tableau
+	        this.evenements = new Array();
+		
+	        for(i = 0; i < evenementsToAdd.length; i++) {
+	            this.evenements[evenementsToAdd[i].id] = evenementsToAdd[i];
+			}
+	    }
+
+	    Aventure.prototype.doesIdExists = function(id) {
+	        return id in this.evenements;
+	    }
+
+	    Aventure.prototype.getIdDebut = function() {
+	        for(var key in this.evenements) 
+	            if(this.evenements[key].debut)
+	                return key;
+	        
+	        // Si aucun début n'est précisé, on renvoie le premier évènement
+	        for(var key in this.evenements)
+	            return key;
+	    }
+	        
+	    Aventure.prototype.getEvenement = function(id) {
+	        return this.evenements[id];
+	    }
+	    
+	    
+	    var arrayEvenements = new Array();
+		var ev;
+	</script>
+	<script type="text/javascript">
+		ev = new Evenement(1,"Le commencement","Bonjour à tous, c'est la kawate. C'est le matin et personne n'est motivé. Que faire ?");
+		ev.setChoix([[2, "mdr rien"], [3, "je travaille parce que fuck it"],[]]);
+		ev.setDebut();
+		arrayEvenements.push(ev);
+
+		ev = new Evenement(2,"Rien faire","Voilà, tu te fais rien.");
+		arrayEvenements.push(ev);
+
+		ev = new Evenement(3,"Travailler","Vous travaillez ardument, mais vous en avez marre, et vous voulez prendre une pause, car le travail c'est éreintant.");
+		ev.setChoix([[4, "Le travail c'est la santé ! Je continue."],[5, "Ne rien faire, c'est la préserver. Je glande."],[6, "Je meurs"],[]]);
+		arrayEvenements.push(ev);
+
+		ev = new Evenement(4,"Encore travailler","Vous travaillez encore. Vous avez tenu 30 minutes, le patron vous offre une promotion !");
+		arrayEvenements.push(ev);
+
+		ev = new Evenement(5,"Arrêter de travailler","Vous êtes en bonne santé maintenant. C'est important pour trouver un nouvel emploi.");
+		arrayEvenements.push(ev);
+
+		ev = new Evenement(6,"Je suis mort","Vous êtes mort");
+		arrayEvenements.push(ev);
+	</script>
+	<script type="text/javascript">
+		var aventure = new Aventure(arrayEvenements);
+	    
+	    function updatePage(idEv) {
+	        if(aventure.doesIdExists(idEv)) {
+	            var texte = document.getElementById("texte");
+	            texte.innerHTML = "";
+	            var p = document.createElement("p");
+	            var ev = aventure.getEvenement(idEv);
+	            p.innerHTML = ev.message;
+	            texte.appendChild(p);
+	            
+	            var choix = document.getElementById("choix");
+	            choix.innerHTML = "";
+	            
+	            for(i = 0; i < ev.choix.length; i++) {
+					if(i != 0) choix.appendChild(document.createTextNode(" | "));
+					if(aventure.doesIdExists(ev.choix[i].dest)) {
+						var lien = document.createElement("a");
+						lien.href = "#";
+						lien.setAttribute('onclick', 'updatePage(' + ev.choix[i].dest + ')');
+						lien.appendChild(document.createTextNode(ev.choix[i].intitule)); 
+						choix.appendChild(lien);
+					} else {
+						choix.appendChild(document.createTextNode(ev.choix[i].intitule));
+					}
+	            }
+	        }
+	    }
+	   	updatePage(aventure.getIdDebut());
+	</script>
+</body>
+</html>
